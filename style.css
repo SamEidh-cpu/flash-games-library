@@ -1,0 +1,680 @@
+/* =========================================================
+   تنسيقات التصميم الاحترافي لـ موقع ألعاب الفلاش
+   ========================================================= */
+
+/* 1. ضبط الأساسيات والألوان الرئيسية */
+:root {
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --accent: #10b981;
+    --accent-hover: #059669;
+    --text-dark: #0f172a;
+    --text-muted: #475569;
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --modal-bg: rgba(255, 255, 255, 0.95);
+    --border-color: rgba(255, 255, 255, 0.6);
+    --shadow-soft: 0 10px 30px -5px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 20px 35px -5px rgba(0, 0, 0, 0.15);
+}
+
+/* 2. خلفية ملونة حية ومتحركة بأسلوب العصري */
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    margin: 0;
+    padding: 40px 20px;
+    direction: rtl;
+    text-align: center;
+    color: var(--text-dark);
+    min-height: 100vh;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+}
+
+/* حركة الخلفية الملونة */
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 3. ترويسة الموقع والعناوين */
+header {
+    max-width: 800px;
+    margin: 0 auto 50px auto;
+    background: rgba(255, 255, 255, 0.25);
+    padding: 25px 20px;
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-soft);
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    margin: 0 0 10px 0;
+}
+
+p.subtitle {
+    font-size: 1.2rem;
+    color: #ffffff;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+    margin: 0;
+    font-weight: 500;
+}
+
+/* 4. شبكة عرض التصنيفات (Grid) */
+.folders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 5. بطاقة القسم الزجاجية (Glassmorphism Card) */
+.folder-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    border-radius: 20px;
+    padding: 30px 24px;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+}
+
+/* تأثير البريق العلوي للبطاقة */
+.folder-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #ff8a00, #e52e71);
+    border-radius: 20px 20px 0 0;
+}
+
+.folder-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: var(--shadow-hover);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.folder-icon {
+    font-size: 55px;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+}
+
+.folder-card:hover .folder-icon {
+    transform: scale(1.2) rotate(5deg);
+}
+
+.folder-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin: 0 0 20px 0;
+}
+
+/* 6. زر التحميل التفاعلي */
+.download-btn {
+    background: linear-gradient(135deg, var(--accent), #059669);
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+    width: 100%;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35);
+    transition: all 0.25s ease;
+}
+
+.download-btn:hover {
+    background: linear-gradient(135deg, #059669, #047857);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+    transform: translateY(-2px);
+}
+
+.download-btn:active {
+    transform: translateY(0);
+}
+
+/* 7. النافذة المنبثقة التنبيهية (Modal Popup) */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(8px);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-box {
+    background: var(--modal-bg);
+    padding: 40px 30px;
+    border-radius: 24px;
+    max-width: 440px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+    animation: modalBounce 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+@keyframes modalBounce {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal-box h3 {
+    color: #e65100;
+    margin-top: 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.modal-box p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin: 20px 0 25px 0;
+}
+
+.player-link {
+    color: var(--primary);
+    font-weight: 800;
+    text-decoration: none;
+    background: rgba(37, 99, 235, 0.1);
+    padding: 4px 10px;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+}
+
+.player-link:hover {
+    background: rgba(37, 99, 235, 0.2);
+}
+
+.confirm-btn {
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+    color: white;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.05rem;
+    font-weight: 800;
+    cursor: pointer;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.35);
+    transition: all 0.25s ease;
+}
+
+.confirm-btn:hover {
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+    transform: translateY(-2px);
+}/* =========================================================
+   تنسيقات التصميم الاحترافي لـ موقع ألعاب الفلاش
+   ========================================================= */
+
+/* 1. ضبط الأساسيات والألوان الرئيسية */
+:root {
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --accent: #10b981;
+    --accent-hover: #059669;
+    --text-dark: #0f172a;
+    --text-muted: #475569;
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --modal-bg: rgba(255, 255, 255, 0.95);
+    --border-color: rgba(255, 255, 255, 0.6);
+    --shadow-soft: 0 10px 30px -5px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 20px 35px -5px rgba(0, 0, 0, 0.15);
+}
+
+/* 2. خلفية ملونة حية ومتحركة بأسلوب العصري */
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    margin: 0;
+    padding: 40px 20px;
+    direction: rtl;
+    text-align: center;
+    color: var(--text-dark);
+    min-height: 100vh;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+}
+
+/* حركة الخلفية الملونة */
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 3. ترويسة الموقع والعناوين */
+header {
+    max-width: 800px;
+    margin: 0 auto 50px auto;
+    background: rgba(255, 255, 255, 0.25);
+    padding: 25px 20px;
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-soft);
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    margin: 0 0 10px 0;
+}
+
+p.subtitle {
+    font-size: 1.2rem;
+    color: #ffffff;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+    margin: 0;
+    font-weight: 500;
+}
+
+/* 4. شبكة عرض التصنيفات (Grid) */
+.folders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 5. بطاقة القسم الزجاجية (Glassmorphism Card) */
+.folder-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    border-radius: 20px;
+    padding: 30px 24px;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+}
+
+/* تأثير البريق العلوي للبطاقة */
+.folder-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #ff8a00, #e52e71);
+    border-radius: 20px 20px 0 0;
+}
+
+.folder-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: var(--shadow-hover);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.folder-icon {
+    font-size: 55px;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+}
+
+.folder-card:hover .folder-icon {
+    transform: scale(1.2) rotate(5deg);
+}
+
+.folder-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin: 0 0 20px 0;
+}
+
+/* 6. زر التحميل التفاعلي */
+.download-btn {
+    background: linear-gradient(135deg, var(--accent), #059669);
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+    width: 100%;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35);
+    transition: all 0.25s ease;
+}
+
+.download-btn:hover {
+    background: linear-gradient(135deg, #059669, #047857);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+    transform: translateY(-2px);
+}
+
+.download-btn:active {
+    transform: translateY(0);
+}
+
+/* 7. النافذة المنبثقة التنبيهية (Modal Popup) */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(8px);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-box {
+    background: var(--modal-bg);
+    padding: 40px 30px;
+    border-radius: 24px;
+    max-width: 440px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+    animation: modalBounce 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+@keyframes modalBounce {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal-box h3 {
+    color: #e65100;
+    margin-top: 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.modal-box p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin: 20px 0 25px 0;
+}
+
+.player-link {
+    color: var(--primary);
+    font-weight: 800;
+    text-decoration: none;
+    background: rgba(37, 99, 235, 0.1);
+    padding: 4px 10px;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+}
+
+.player-link:hover {
+    background: rgba(37, 99, 235, 0.2);
+}
+
+.confirm-btn {
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+    color: white;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.05rem;
+    font-weight: 800;
+    cursor: pointer;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.35);
+    transition: all 0.25s ease;
+}
+
+.confirm-btn:hover {
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+    transform: translateY(-2px);
+}
+/* =========================================================
+   تنسيقات التصميم الاحترافي لـ موقع ألعاب الفلاش
+   ========================================================= */
+
+/* 1. ضبط الأساسيات والألوان الرئيسية */
+:root {
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --accent: #10b981;
+    --accent-hover: #059669;
+    --text-dark: #0f172a;
+    --text-muted: #475569;
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --modal-bg: rgba(255, 255, 255, 0.95);
+    --border-color: rgba(255, 255, 255, 0.6);
+    --shadow-soft: 0 10px 30px -5px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 20px 35px -5px rgba(0, 0, 0, 0.15);
+}
+
+/* 2. خلفية ملونة حية ومتحركة بأسلوب العصري */
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    margin: 0;
+    padding: 40px 20px;
+    direction: rtl;
+    text-align: center;
+    color: var(--text-dark);
+    min-height: 100vh;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+}
+
+/* حركة الخلفية الملونة */
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 3. ترويسة الموقع والعناوين */
+header {
+    max-width: 800px;
+    margin: 0 auto 50px auto;
+    background: rgba(255, 255, 255, 0.25);
+    padding: 25px 20px;
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-soft);
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    margin: 0 0 10px 0;
+}
+
+p.subtitle {
+    font-size: 1.2rem;
+    color: #ffffff;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+    margin: 0;
+    font-weight: 500;
+}
+
+/* 4. شبكة عرض التصنيفات (Grid) */
+.folders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 5. بطاقة القسم الزجاجية (Glassmorphism Card) */
+.folder-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    border-radius: 20px;
+    padding: 30px 24px;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+}
+
+/* تأثير البريق العلوي للبطاقة */
+.folder-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #ff8a00, #e52e71);
+    border-radius: 20px 20px 0 0;
+}
+
+.folder-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: var(--shadow-hover);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.folder-icon {
+    font-size: 55px;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+}
+
+.folder-card:hover .folder-icon {
+    transform: scale(1.2) rotate(5deg);
+}
+
+.folder-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin: 0 0 20px 0;
+}
+
+/* 6. زر التحميل التفاعلي */
+.download-btn {
+    background: linear-gradient(135deg, var(--accent), #059669);
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+    width: 100%;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35);
+    transition: all 0.25s ease;
+}
+
+.download-btn:hover {
+    background: linear-gradient(135deg, #059669, #047857);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+    transform: translateY(-2px);
+}
+
+.download-btn:active {
+    transform: translateY(0);
+}
+
+/* 7. النافذة المنبثقة التنبيهية (Modal Popup) */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(8px);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-box {
+    background: var(--modal-bg);
+    padding: 40px 30px;
+    border-radius: 24px;
+    max-width: 440px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+    animation: modalBounce 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+@keyframes modalBounce {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal-box h3 {
+    color: #e65100;
+    margin-top: 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.modal-box p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin: 20px 0 25px 0;
+}
+
+.player-link {
+    color: var(--primary);
+    font-weight: 800;
+    text-decoration: none;
+    background: rgba(37, 99, 235, 0.1);
+    padding: 4px 10px;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+}
+
+.player-link:hover {
+    background: rgba(37, 99, 235, 0.2);
+}
+
+.confirm-btn {
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+    color: white;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.05rem;
+    font-weight: 800;
+    cursor: pointer;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.35);
+    transition: all 0.25s ease;
+}
+
+.confirm-btn:hover {
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+    transform: translateY(-2px);
+}
