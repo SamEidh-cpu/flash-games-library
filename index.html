@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<link rel="stylesheet" href="style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحميل مكتبة ألعاب الفلاش الشاملة</title>
+    
+    <style>
+        /* إعادة ضبط القيم الأساسية والمتغيرات */
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --accent-color: #10b981;
+            --accent-hover: #059669;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            text-align: center;
+            margin: 0;
+            padding: 40px 20px;
+            direction: rtl;
+        }
+
+        /* العناوين والترويسة */
+        header {
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        p.subtitle {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* شبكة عرض البطاقات */
+        .folders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* تصميم البطاقة الاحترافية */
+        .folder-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 28px 24px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .folder-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .folder-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: transparent;
+        }
+
+        .folder-card:hover::before {
+            opacity: 1;
+        }
+
+        .folder-icon {
+            font-size: 52px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.08));
+        }
+
+        .folder-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0 0 20px 0;
+        }
+
+        /* أزرار التحميل */
+        .download-btn {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .download-btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .download-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* النافذة المنبثقة (Modal) */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-box {
+            background: var(--card-bg);
+            padding: 35px 30px;
+            border-radius: 20px;
+            max-width: 440px;
+            width: 90%;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            animation: modalFadeIn 0.25s ease-out forwards;
+            border: 1px solid #e2e8f0;
+        }
+
+        @keyframes modalFadeIn {
+            from { transform: scale(0.92); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-box h3 {
+            color: #d97706;
+            margin-top: 0;
+            font-size: 1.4rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .modal-box p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin: 20px 0;
+        }
+
+        .player-link {
+            color: var(--primary-color);
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 2px dashed var(--primary-color);
+            padding-bottom: 2px;
+            transition: color 0.2s ease;
+        }
+
+        .player-link:hover {
+            color: var(--primary-hover);
+        }
+
+        .confirm-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
+        }
+
+        .confirm-btn:hover {
+            background-color: var(--primary-hover);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>📦 تحميل مجلدات ألعاب الفلاش الكاملة</h1>
+        <p class="subtitle">اختر القسم واضغط على الزر لتحميل المجلد كاملاً بملف مضغوط ZIP:</p>
+    </header>
+
+    <main class="folders-grid">
+        
+        <div class="folder-card">
+            <div class="folder-icon">🏎️</div>
+            <h3 class="folder-title">فلاشات سيارات</h3>
+            <button class="download-btn" onclick="startDownload('zips/سيارات.zip')">📥 تحميل المجلد (ZIP)</button>
+        </div>
+
+        <div class="folder-card">
+            <div class="folder-icon">🍄</div>
+            <h3 class="folder-title">فلاشات ماريو</h3>
+            <button class="download-btn" onclick="startDownload('zips/فلاشات ماريو.zip')">📥 تحميل المجلد (ZIP)</button>
+        </div>
+
+        <div class="folder-card">
+            <div class="folder-icon">🍳</div>
+            <h3 class="folder-title">فلاشات طبخ</h3>
+            <button class="download-btn" onclick="startDownload('zips/طبخ.zip')">📥 تحميل المجلد (ZIP)</button>
+        </div>
+
+        <div class="folder-card">
+            <div class="folder-icon">✨</div>
+            <h3 class="folder-title">فلاشات أناقة</h3>
+            <button class="download-btn" onclick="startDownload('zips/اناقة.zip')">📥 تحميل المجلد (ZIP)</button>
+        </div>
+
+        <div class="folder-card">
+            <div class="folder-icon">🎀</div>
+            <h3 class="folder-title">فلاشات للبنات</h3>
+            <button class="download-btn" onclick="startDownload('zips/فلاشات للبنات.zip')">📥 تحميل المجلد (ZIP)</button>
+        </div>
+
+        <div class="folder-card">
+            <div class="folder-icon">🗺️</div>
+            <h3 class="folder-title">فلاشات مغامرات</h3>
+            <button class="download-btn" onclick="startDownload('zips/فلاشات مغامرات جديدة.zip')">📥 تحميل المجلد (ZIP)</button>
+        </div>
+
+        <div class="folder-card">
+            <div class="folder-icon">😂</div>
+            <h3 class="folder-title">فلاشات مضحكة</h3>
+            <button class="download-btn" onclick="startDownload('zips/ضحك.zip')">📥 تحميل المجلد (ZIP)</button>
+        </div>
+
+        <div class="folder-card">
+            <div class="folder-icon">👶</div>
+            <h3 class="folder-title">فلاشات للأطفال</h3>
+            <button class="download-btn" onclick="startDownload('zips/فلاشات للصبيان.zip')">📥 تحميل المجلد (ZIP)</button>
+        </div>
+
+        <div class="folder-card">
+            <div class="folder-icon">🕶️</div>
+            <h3 class="folder-title">فلاشات ثلاثي الأبعاد</h3>
+            <button class="download-btn" onclick="startDownload('zips/ثلاثي ابعاد.zip')">📥 تحميل المجلد (ZIP)</button>
+        </div>
+
+    </main>
+
+    <!-- النافذة التنبيهية -->
+    <div id="downloadModal" class="modal-overlay">
+        <div class="modal-box">
+            <h3>⚠️ تنبيه مهم قبل التحميل</h3>
+            <p>
+                لتشغيل الألعاب بعد التحميل، يجب أن يكون لديك مشغل ألعاب فلاش.<br><br>
+                👉 <a href="https://example.com/flash-player" target="_blank" class="player-link">انقر هنا لتحميل المشغل</a>
+            </p>
+            <button class="confirm-btn" onclick="confirmDownload()">حسنًا، ابدأ التحميل الآن 📥</button>
+        </div>
+    </div>
+
+    <script>
+        let selectedFile = '';
+
+        function startDownload(filePath) {
+            selectedFile = filePath;
+            document.getElementById('downloadModal').style.display = 'flex';
+        }
+
+        function confirmDownload() {
+            document.getElementById('downloadModal').style.display = 'none';
+            if (selectedFile) {
+                const a = document.createElement('a');
+                a.href = selectedFile;
+                a.download = '';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+        }
+    </script>
+
+</body>
+</html>
